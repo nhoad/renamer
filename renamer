@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+'''
+Name: Nathan Hoad
+Date: July 09 2010
+Example: renamer "TV Show name - S04E%s" 1 *
+Usage: renamer [template] [start_number] [files]...
+Description: Simple batch file renamer. It automatically grabs the extension of the particular file so it won't put the wrong extension on rogue files.
+'''
+
+import os.path
+import sys
+
+# get the how many files there are to process
+fill_amount = len(sys.argv[2:])
+
+# figure out how much padding to do
+fill_amount = len(str(fill_amount))
+
+if fill_amount <= 1:
+    fill_amount = 2
+
+# get the starting number and the template to use
+number = int(sys.argv[2])
+template = sys.argv[1]
+
+for old_name in sys.argv[3:]:
+    try:
+        new_name = template % str(number).zfill(fill_amount) + os.path.splitext(old_name)[1]
+        if os.path.isfile(new_name):
+            print new_name, " ALREADY EXISTS. ABORTING"
+            sys.exit(1)
+        number = number + 1
+        print "%s ==> %s" % (old_name, new_name)
+        os.rename(old_name, new_name)
+    except TypeError:
+        print r"You're missing the %s in your template!"
