@@ -2,8 +2,8 @@
 '''
 Name: Nathan Hoad
 Original Date Written: July 09 2010
-Example: renamer "TV Show name - S04E%s" 1 *
-Usage: renamer [template] [start_number] [files]...
+Example: renamer "TV Show name - S04E%s" 1 test *
+Usage: renamer [template] [start_number] [test or confirm] [files]...
 Description: Simple batch file renamer. It automatically grabs the extension 
              of the particular file so it won't put the wrong extension on 
              rogue files.
@@ -13,29 +13,30 @@ import os.path
 import sys
 
 def confirmed():
+    """Get a Y/N answer from the user."""
     answer = raw_input("Are you sure? (Y/N): ")
 
-    if answer in ('Y', 'y'):
-        return True
-    return False
+    return True if answer in ('Y', 'y') else False
+
+# get the starting number and the template to use
+number = int(sys.argv[2])
+template = sys.argv[1]
+
+# check to see if test or confirmation was specified
+test = True if "test" == sys.argv[3] else False
+confirmation = True if "confirm" == sys.argv[3] else False
+
+# account for the test or confirm options
+files = sys.argv[4:] if test or confirmation else sys.argv[3:]
 
 # get the how many files there are to process
-fill_amount = len(sys.argv[2:])
+fill_amount = len(files)
 
 # figure out how much padding to do
 fill_amount = len(str(fill_amount))
 
 if fill_amount <= 1:
     fill_amount = 2
-
-# get the starting number and the template to use
-number = int(sys.argv[2])
-template = sys.argv[1]
-
-test = True if "test" == sys.argv[3] else False
-confirmation = True if "confirm" == sys.argv[3] else False
-answer = False
-files = sys.argv[4:] if test or confirmation else sys.argv[3:]
 
 if test:
     print "Test mode is enabled. This will simply show what WOULD happen, it won't do anything."
