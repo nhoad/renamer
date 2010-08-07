@@ -1,0 +1,55 @@
+renamer
+
+Dependencies:
+-------------
+Python 2.6, at least
+
+General:
+--------
+renamer is my attempt at a batch file renamer. I couldn't find any console 
+versions of software like this, so I wrote my own.
+
+Installation:
+-------------
+Copy to a bin folder of your choice. Personally, I make a symbolic link from ~/bin/
+
+Configuration:
+--------------
+There are no configuration options.
+
+Usage:
+-----
+
+Using this software can be a little confusing. So I'll run through some simple usage statements:
+
+To rename all files in a folder to have the name "The Pacfic S01E(episode).(extension)", you would do this:
+   renamer "The Pacific S01E%s" 1 *
+
+Want to start from a different number?
+   renamer "The Pacific S01E%s" 5 *
+
+Want to rename specific files?
+   renamer "The Pacific S01E%s" 1 file1.avi file2.avi file5.avi file6.avi 
+
+You can also test your batch before you do it, to make sure you're not doing anything unwanted.
+That's done like so:
+   renamer "The Pacific S01E%s" 1 test *
+
+You can also do a confimation before each file is processed, like so:
+   renamer "The Pacific S01E%s" 1 confirm *
+
+You may notice that I never specify filename extensions. That's because my 
+program handles those, you don't want to stomp on extensions now, do you?
+(e.g., you have a folder full of JPGs and PNGs, you don't want to change 
+the JPGs to PNGs, do you?)
+
+Suggestions:
+------------
+
+I've written this software for my specific requirements, but if you have any 
+features you'd like to see added, don't hesitate to contact me. My email is 
+in the attached AUTHORS file.
+
+NOTE: I WILL NOT accept feature requests that will introduce any kind of GUI
+to this application. I wrote it with the specific intent that no console version
+of this software existed. There are many good GUI alternatives.
